@@ -95,7 +95,7 @@ fn build_12(b: *Build) void {
 
     if (enableTLS) {
         log.info("enable TLS support", .{});
-        if (!target.query.isNative()) {
+        if (!target.isNative()) {
             log.info("when enable tls, not support cross compile", .{});
             std.os.exit(1);
         }
