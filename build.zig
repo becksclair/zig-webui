@@ -117,13 +117,11 @@ fn build_12(b: *Build) void {
         .is_static = isStatic,
     }).artifact("webui");
 
-    b.installArtifact(webui);
-
     const webui_module = b.addModule("webui", .{
-        .root_source_file = .{
+        .source_file = .{
             .path = "src/webui.zig",
         },
-        .imports = &.{
+        .dependencies = &.{
             .{
                 .name = "flags",
                 .module = flags_module,
@@ -131,7 +129,7 @@ fn build_12(b: *Build) void {
         },
     });
 
-    webui_module.linkLibrary(webui);
+    b.installArtifact(webui);
 
     // build examples
     build_examples_12(b, optimize, target, webui_module, webui);
@@ -224,7 +222,7 @@ fn build_examples_11(b: *Build, optimize: OptimizeMode, target: CrossTarget, web
     }
 }
 
-fn build_examples_12(b: *Build, optimize: OptimizeMode, target: Build.ResolvedTarget, webui_module: *Module, webui_lib: *Compile) void {
+fn build_examples_12(b: *Build, optimize: OptimizeMode, target: CrossTarget, webui_module: *Module, webui_lib: *Compile) void {
     // we use lazyPath to get absolute path of package
     var lazy_path = Build.LazyPath{
         .path = "src/examples",
@@ -263,7 +261,7 @@ fn build_examples_12(b: *Build, optimize: OptimizeMode, target: Build.ResolvedTa
                     .optimize = optimize,
                 });
 
-                exe.root_module.addImport("webui", webui_module);
+                exe.addModule("webui", webui_module);
                 exe.linkLibrary(webui_lib);
 
                 const exe_install = b.addInstallArtifact(exe, .{});

@@ -3,10 +3,7 @@
     .version = "0.0.1",
     .minimum_zig_version = "0.11.0",
     .dependencies = .{
-        .webui = .{
-            .url = "https://github.com/webui-dev/webui/archive/c56260ff0de8f13a49559ca592009093a5279e25.tar.gz",
-            .hash = "1220b7199d576b0aa86449975518dfd7c694c12ea348b8c13223332e265216497c3b",
-        },
+        .webui = .{ .url = "https://github.com/becksclair/webui/archive/d232b1f0c55702813e24de763c64d48587214899.tar.gz", .hash = "122079d26ee601b34544b065f3d7ab8c4ed9702ad76d95a49d5d57c7c99c19c70320" },
     },
     .paths = .{
         "",
